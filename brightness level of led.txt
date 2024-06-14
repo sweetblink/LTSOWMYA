@@ -1,0 +1,20 @@
+import machine
+import utime
+
+# Set up PWM pin
+led_pin=machine.Pin(15)
+pwm=machine.PWM(led_pin)
+
+# Set the PWM frequency (in Hz)
+pwm.freq(1000)
+
+# Duty cycle values range from 0 to 1023
+# 0 - LED is off, 1023 - LED is fully on
+# Adjust duty cycle for desired intensity
+brightness_levels=[0,256,512,768,1023]
+for brightness in brightness_levels:
+    pwm.duty_u16(brightness)
+    print("brightness level:",brightness)
+    utime.sleep(2)
+    pwm.deinit()
+    led_pin.low()
